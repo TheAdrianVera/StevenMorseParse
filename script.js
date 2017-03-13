@@ -20,21 +20,35 @@ function checkFileAPI() {
  */
 function test(){
     //declare your variables here before the HTML
-    var placeholder = "Constructing HTML Elements";
-    //where you create the HTML Steven
-    var html = [
-    '<tr id ="photoRow" valign="middle" align="left">',
-        '<td id="image1">',
-            '<img id="image2" src ="" alt='+ placeholder +' width="150" height="150"/>',
-        '</td>',
-    '</tr>'
-    ].join("\n");
+    var student_firstname = "Adrian";
+    var student_lastname = "Vera";
+    var student_email = "agvm95@gmail.com";
+    var student_linkedin = "https://www.linkedin.com/in/adrian-vera-6180a7b6/";
+    var image_src = "https://media.licdn.com/media/AAEAAQAAAAAAAAQmAAAAJGVjZDJkNDI5LWU1NmYtNGRiOC04NzhhLTQ3MjlkM2NhYmUzYw.jpg";
+    var linkedin_logo = "https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_color-512.png";
+    
+    //Redefining variables for each student object
+    for(var i =0; i<arrayOfObjects.length; i++){
+        student_firstname = arrayOfObjects[i].name;
+        student_lastname = arrayOfObjects[i].lastname;
+        student_email = arrayOfObjects[i].email;
+        student_linkedin = arrayOfObjects[i].student_linkedin;
 
-    $("#imageRow").append(html);
+        //where you create the HTML that is to be injected
+        var html3 = [
+        '<div class = "floating-box">',
+            '<img src='+ image_src +' height="150px" width="150px">',
+            '<p class= "name_email">'+ student_firstname + " " + student_lastname +'</p>',
+            '<p class= "name_email">'+ student_email +'</p>',
+            '<a href = "'+student_linkedin+'"><img src="linkedin_logo.png" height="15px" width="15px margin="1px" "></a>',
+        '</div>'
+        ].join("\n");
 
-    //console.log(tableRow);
+        $("#student_frame").append(html3);
+    }
+
+
 }
-
 
 /**
  * Creates a student object from inputted student array
@@ -47,7 +61,7 @@ function createStudentObject(student) {
         this.netid = student[3];
         this.email = student[4];
         this.linkedin = student[5];
-        this.youtube = student[6];
+        this.image = student[6];
         this.college = student[7];
     }
     arrayOfObjects.push(studentObject);

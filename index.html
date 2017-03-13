@@ -4,6 +4,25 @@
     <title>Read File (via User Input selection)</title>
     <script src="jquery-3.1.1.js"></script>
 	<script type="text/javascript" src="script.js"></script>
+	<style>
+		.floating-box {
+		    float: left;
+		    width: 150px;
+		    height: 200px;
+		    margin: 10px;
+		    border: 3px solid #73AD21;  
+		}
+
+		.after-box {
+		    clear: left;
+		    border: 3px solid red;      
+		}
+
+		.name_email {
+			margin:1px;
+			font-size: 12px;
+		}
+	</style>
 
 </head>
 
@@ -14,32 +33,12 @@
         <hr/> 
     </div>
 
+    <button onclick="test()">Jizzy</button>
     <h3>Click on the pictures of the class members, you will be able to visit their Linkedin profile pages.</h3>
+  	
+  	<div id="student_frame">
 
-  <table border="0" id="table1">
-    	<tbody id ="body">
-    	<!-- <button onclick="test()">Jizzy</button> -->
-    		<div id="imageRow">
-	    		<tr valign="middle" align="left">
-	    			<td id="image1">
-	    				<img id="image2" src ="" alt="test" width="150" height="150"/>
-					</td>
-				</tr>
-			</div>
+  	</div>
 
-			<div id = "email row">
-				<tr id="emailRow" valign="middle" align="left">
-					<td id="email1">
-						<p> name </p>
-						<a href="" id="email2" target="_blank"> netid@illinois.edu </a>
-					</td>
-				</tr>
-			</div>
-    	</tbody>
-    </table>
-
-
-    
-	
 </body>
 </html>
