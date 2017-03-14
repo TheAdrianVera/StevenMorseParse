@@ -42,7 +42,7 @@ function test(){
                 student_firstname = arrayOfObjects[i].name;
                 student_lastname = arrayOfObjects[i].lastname;
                 student_email = arrayOfObjects[i].email;
-                student_linkedin = arrayOfObjects[i].student_linkedin;
+                student_linkedin = arrayOfObjects[i].linkedin;
                 image_src = arrayOfObjects[i].image;
 
                 //where you create the HTML that is to be injected
@@ -58,6 +58,7 @@ function test(){
                 ].join("\n");
 
                 $("#student_frame").append(html);
+
             //}
         }
     //}
