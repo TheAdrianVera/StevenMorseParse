@@ -1,5 +1,6 @@
 var reader; //GLOBAL File Reader object for demo purpose only
 var arrayOfObjects = new Array();
+var studentGroupsArray = new Array();
 //http://www.codereadability.com/constructing-html-with-templates/      GREAT WEBSITE FOR REFERENCE
 
 
@@ -28,27 +29,84 @@ function test(){
     var linkedin_logo = "https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_color-512.png";
     
     //Redefining variables for each student object
-    for(var i =0; i<arrayOfObjects.length; i++){
-        student_firstname = arrayOfObjects[i].name;
-        student_lastname = arrayOfObjects[i].lastname;
-        student_email = arrayOfObjects[i].email;
-        student_linkedin = arrayOfObjects[i].student_linkedin;
+    // for(var j =0; j<studentGroupsArray; j++){
 
-        //where you create the HTML that is to be injected
-        var html3 = [
-        '<div class = "floating-box">',
-            '<img src='+ image_src +' height="150px" width="150px">',
-            '<p class= "name_email">'+ student_firstname + " " + student_lastname +'</p>',
-            '<p class= "name_email">'+ student_email +'</p>',
-            '<a href = "'+student_linkedin+'"><img src="linkedin_logo.png" height="15px" width="15px margin="1px" "></a>',
-        '</div>'
-        ].join("\n");
+    //     var title = [
+    //     '<div class="after-box">'+studentGroupsArray[j]+'</div>'
+    //     ].join("\n");
 
-        $("#student_frame").append(html3);
-    }
+    //     $("#student_frame").append(title);
+
+        for(var i =0; i<arrayOfObjects.length; i++){
+            //if(arrayOfObjects[i].student_group == studentGroupsArray[j]){
+                student_firstname = arrayOfObjects[i].name;
+                student_lastname = arrayOfObjects[i].lastname;
+                student_email = arrayOfObjects[i].email;
+                student_linkedin = arrayOfObjects[i].student_linkedin;
+                image_src = arrayOfObjects[i].image;
+
+                //where you create the HTML that is to be injected
 
 
+                var html = [
+                '<div class = "floating-box">',
+                    '<img src='+ image_src +' height="150px" width="150px">',
+                    '<p class= "name_email">'+ student_firstname + " " + student_lastname +'</p>',
+                    '<p class= "name_email">'+ student_email +'</p>',
+                    '<a href = "'+student_linkedin+'"><img src="linkedin_logo.png" height="15px" width="15px margin="1px" "></a>',
+                '</div>'
+                ].join("\n");
+
+                $("#student_frame").append(html);
+            //}
+        }
+    //}
 }
+
+/**
+ * Finds and creates student groups array of all student groups in CSV
+ */
+function findStudentGroups(){
+    for(var i=0; i<arrayOfObjects.length; i++){
+        var curr_student_group = arrayOfObjects[i].student_group;
+        var contains_student_group = contains.call(studentGroupsArray, curr_student_group);
+        if(!contains_student_group){    
+            studentGroupsArray.push(curr_student_group);
+        }
+    }
+    console.log(studentGroupsArray);
+}
+
+
+/**
+ * Checks if you the array contains a given value ... 
+ EX:
+ var myArray = [0,1,2],
+    needle = 1,
+    index = contains.call(myArray, needle); // true
+ */
+var contains = function(needle) {
+    // Per spec, the way to identify NaN is that it is not equal to itself
+    var findNaN = needle !== needle;
+    var indexOf;
+
+    if(!findNaN && typeof Array.prototype.indexOf === 'function') {
+        indexOf = Array.prototype.indexOf;
+    } else {
+        indexOf = function(needle) {
+            var i = -1, index = -1;
+            for(i = 0; i < this.length; i++) {
+                var item = this[i];
+                if((findNaN && item !== item) || item === needle) {
+                    index = i;
+                    break;
+                }
+            }
+            return index;
+        };
+    }
+    return indexOf.call(this, needle) > -1;
+};
 
 /**
  * Creates a student object from inputted student array
@@ -62,7 +120,7 @@ function createStudentObject(student) {
         this.email = student[4];
         this.linkedin = student[5];
         this.image = student[6];
-        this.college = student[7];
+        this.student_group = student[7];
     }
     arrayOfObjects.push(studentObject);
 }
@@ -87,6 +145,10 @@ function readText(filePath) {
                 createStudentObject(student);
             }
             console.log(arrayOfObjects);
+            findStudentGroups();
+
+
+        
         };//end onload()
         reader.readAsText(filePath.files[0]);
     }//end if html5 filelist support
