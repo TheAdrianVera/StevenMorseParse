@@ -17,38 +17,55 @@ function checkFileAPI() {
     }
 }
 /**
- * Creates new html elements
+ * Creates a student object from inputted student array
  */
-function test(){
-    //declare your variables here before the HTML
-    var student_firstname = "Adrian";
-    var student_lastname = "Vera";
-    var student_email = "agvm95@gmail.com";
-    var student_linkedin = "https://www.linkedin.com/in/adrian-vera-6180a7b6/";
-    var image_src = "https://media.licdn.com/media/AAEAAQAAAAAAAAQmAAAAJGVjZDJkNDI5LWU1NmYtNGRiOC04NzhhLTQ3MjlkM2NhYmUzYw.jpg";
-    var linkedin_logo = "https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_color-512.png";
-    
-    //Redefining variables for each student object
-    // for(var j =0; j<studentGroupsArray; j++){
+function createStudentObject(student) {
+    var studentObject = new function(){
+        this.class = student[0];
+        this.name = student[1];
+        this.lastname = student[2];
+        this.netid = student[3];
+        this.email = student[4];
+        this.linkedin = student[5];
+        this.image = student[6];
+        this.student_group = student[7];
+    }
+    arrayOfObjects.push(studentObject);
+}
 
-    //     var title = [
-    //     '<div class="after-box">'+studentGroupsArray[j]+'</div>'
-    //     ].join("\n");
+/**
+ * Creates student blocks of HTML
+ */
+ function createTitle(title){
+    var titleHTML = [
+    '<div class="after-box">'+title+'</div>'
+    ].join("\n");
 
-    //     $("#student_frame").append(title);
+    $("#student_frame").append(titleHTML);
+ }
 
-        for(var i =0; i<arrayOfObjects.length; i++){
-            //if(arrayOfObjects[i].student_group == studentGroupsArray[j]){
-                student_firstname = arrayOfObjects[i].name;
-                student_lastname = arrayOfObjects[i].lastname;
-                student_email = arrayOfObjects[i].email;
-                student_linkedin = arrayOfObjects[i].linkedin;
-                image_src = arrayOfObjects[i].image;
+/**
+ * Creates student blocks of HTML
+ */
+function createStudentBlocks(title){
+    //variables for injected HTML
+    var student_firstname = "";
+    var student_lastname = "";
+    var student_email = "";
+    var student_linkedin = "";
+    var image_src = "";
+    var linkedin_logo = "";
 
-                //where you create the HTML that is to be injected
+    for(var i=0; i<arrayOfObjects.length; i++){
+        if(arrayOfObjects[i].student_group == title){
+            console.log(arrayOfObjects[i].name);
+            student_firstname = arrayOfObjects[i].name;
+            student_lastname = arrayOfObjects[i].lastname;
+            student_email = arrayOfObjects[i].email;
+            student_linkedin = arrayOfObjects[i].linkedin;
+            image_src = arrayOfObjects[i].image;
 
-
-                var html = [
+            var html = [
                 '<div class = "floating-box">',
                     '<img src='+ image_src +' height="150px" width="150px">',
                     '<p class= "name_email">'+ student_firstname + " " + student_lastname +'</p>',
@@ -57,11 +74,9 @@ function test(){
                 '</div>'
                 ].join("\n");
 
-                $("#student_frame").append(html);
-
-            //}
+            $("#student_frame").append(html);
         }
-    //}
+    }
 }
 
 /**
@@ -75,9 +90,18 @@ function findStudentGroups(){
             studentGroupsArray.push(curr_student_group);
         }
     }
-    console.log(studentGroupsArray);
 }
 
+/**
+ * Creates new html elements
+ */
+function displayFullHTML(){
+    for(var k=0; k<studentGroupsArray.length; k++){
+        createTitle(studentGroupsArray[k]);
+        createStudentBlocks(studentGroupsArray[k]);
+        console.log("done");
+    }
+}
 
 /**
  * Checks if you the array contains a given value ... 
@@ -110,23 +134,6 @@ var contains = function(needle) {
 };
 
 /**
- * Creates a student object from inputted student array
- */
-function createStudentObject(student) {
-    var studentObject = new function(){
-        this.class = student[0];
-        this.name = student[1];
-        this.lastname = student[2];
-        this.netid = student[3];
-        this.email = student[4];
-        this.linkedin = student[5];
-        this.image = student[6];
-        this.student_group = student[7];
-    }
-    arrayOfObjects.push(studentObject);
-}
-
-/**
  * reads text input, parses string, and creates an array of student objects
  */
 function readText(filePath) {
@@ -147,6 +154,7 @@ function readText(filePath) {
             }
             console.log(arrayOfObjects);
             findStudentGroups();
+            displayFullHTML();
 
 
         
