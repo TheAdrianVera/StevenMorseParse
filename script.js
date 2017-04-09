@@ -3,6 +3,8 @@ var arrayOfObjects = new Array();
 var studentGroupsArray = new Array();
 //http://www.codereadability.com/constructing-html-with-templates/      GREAT WEBSITE FOR REFERENCE
 
+//meeting girls in SF and faking name
+//wilson/brad/andrew/issue it reminds me of
 
 /**
  * Check for the various File API support.
@@ -16,6 +18,7 @@ function checkFileAPI() {
         return false;
     }
 }
+
 /**
  * Creates a student object from inputted student array
  */
@@ -34,11 +37,22 @@ function createStudentObject(student) {
 }
 
 /**
+ * Creates a student object from inputted student array
+ */
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            console.log("false");
+    }
+    console.log("true");
+}
+
+/**
  * Creates student blocks of HTML
  */
  function createTitle(title){
     var titleHTML = [
-    '<div class="after-box">'+title+'</div>'
+    '<div class="after-box" style="clear: left; border: 3px solid #131F33;">'+title+'</div>'
     ].join("\n");
 
     $("#student_frame").append(titleHTML);
@@ -65,10 +79,16 @@ function createStudentBlocks(title){
             student_linkedin = arrayOfObjects[i].linkedin;
             image_src = arrayOfObjects[i].image;
 
+            //console.log(i);
+            //isEmpty(image_src);
+            if(isEmpty(image_src)) {   
+                image_src = "blankProfile.jpg";
+            }
+
             var html = [
-                '<div class = "floating-box">',
+                '<div class = "floating-box" style = "float: left; width: 150px; height: 200px; margin: 10px; border: 3px ">',
                     '<img src='+ image_src +' height="150px" width="150px">',
-                    '<p class= "name_email">'+ student_firstname + " " + student_lastname +'</p>',
+                    '<p class= "name_email" style="margin:1px; font-size: 12px;">'+ student_firstname + " " + student_lastname +'</p>',
                     '<p class= "name_email">'+ student_email +'</p>',
                     '<a href = "'+student_linkedin+'"><img src="linkedin_logo.png" height="15px" width="15px margin="1px" "></a>',
                 '</div>'
@@ -99,7 +119,7 @@ function displayFullHTML(){
     for(var k=0; k<studentGroupsArray.length; k++){
         createTitle(studentGroupsArray[k]);
         createStudentBlocks(studentGroupsArray[k]);
-        console.log("done");
+        //console.log("done");
     }
 }
 
@@ -152,7 +172,7 @@ function readText(filePath) {
                 //creates student object
                 createStudentObject(student);
             }
-            console.log(arrayOfObjects);
+            //console.log(arrayOfObjects);
             findStudentGroups();
             displayFullHTML();
 
